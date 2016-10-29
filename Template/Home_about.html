@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/style.css" rel="stylesheet">
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--导航-->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+                <a class="navbar-brand" href="#">微信公众号管家</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">首页</a></li>
+                <li><a href="">关于</a></li>
+                <li><a href="">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>联系方式</h2>
+        <address>
+            <strong>深圳市四光年信息技术有限公司.</strong><br> 深圳市南山区深南大道100号<br>
+            <abbr title="Phone">联系电话:</abbr> 400-123-123
+        </address>
+
+        <h2>建议</h2>
+        <form action="" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="" class="col-md-2 control-label">姓名</label>
+                <div class="col-md-4">
+                    <input class="form-control" id="truename" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-md-2 control-label">称呼</label>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label>
+                        <input type="radio" checked />先生
+                    </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                        <input type="radio" />女士
+                    </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-md-2 control-label">你的职位</label>
+                <div class="col-md-4">
+                <select class="form-control" name="" id="job">
+                    <option value="">开发者</option>
+                    <option value="">运营</option>
+                    <option value="">管理人员</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-md-2 control-label">你最喜欢”公众号管家“的哪个功能</label>
+                <div class="col-md-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked>文章高级排版
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">多公众号切换
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">素材集中管理
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">其他
+                    </label>
+                </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-md-2 control-label">更多建议</label>
+                <div class="col-md-4">
+                <textarea class="form-control" rows="6" cols=""></textarea>
+                </div>
+                 <p>请不要超过500个字</p>
+            </div>
+           
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                <button class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

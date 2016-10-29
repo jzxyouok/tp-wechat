@@ -1,0 +1,77 @@
+<table class="table table-striped table-bordered table-condensed" style="width: 100%">
+    <tr>
+        <th>id</th>
+        <th>appid</th>
+        <th>secretkey</th>
+        <th>url</th>
+        <th>token</th>
+        <th>encoding_aes_key</th>
+        <th>description</th>
+        <th>access_token</th>
+        <th>edit</th>
+    </tr>
+    <tbody>
+    <foreach name="accounts" item="account">
+    <tr class="account-item">
+        <td>{$account.id}</td>
+        <td class="appid">{$account.appid}</td>
+        <td class="secretkey">{$account.secretkey}</td>
+        <td class="url">{$account.url}</td>
+        <td class="token">{$account.token}</td>
+        <td class="encoding_aes_key">{$account.encoding_aes_key}</td>
+        <td class="description">{$account.description}</td>
+        <td class="edit-account">
+            <p>{$account.access_token}</p>
+            <p>{:date('Y-m-d H:i:s', $account['expire_time'])}</p>
+        </td>
+        <td class="edit-account">
+            <a href="{:U('Account/delete',array('id'=>$account['id']))}">删除</a>
+            <a href="{:U('Account/updateAccessToken',array('id'=>$account['id']))}">更新</a>
+            <a href="{:U('Account/getMenu',array('id'=>$account['id']))}">Menu</a>
+            <a href="{:U('Account/getUserList',array('id'=>$account['id']))}">User</a>
+        </td>
+    </tr>
+    </foreach>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function(){
+        $(".table tbody td").not(".edit-account").unbind().dblclick(tdclick);
+    })
+
+    function tdclick(e) {
+        var td = $(this);
+        var value = td.html();
+
+        var inputNode = $("<input>");
+        inputNode.attr("value", value);
+        inputNode.blur(function(event) {
+            
+
+            //提交数据
+            var modifyId = td.parent().find("td").first().html();
+
+            params = {id: modifyId, name: td.attr('class'), value: inputNode.val()};
+            $.getJSON("{:U('Account/edit')}", params, function(json, textStatus) {
+                if(json.code == 200){
+                    td.html(inputNode.val());
+                }else{
+                    td.html(value);
+                    alert(json.msg);
+                }
+            });
+
+            //重新绑定事件
+            td.dblclick(tdclick);
+        });
+
+        td.html('');
+        td.append(inputNode);
+        inputNode.focus();
+
+        //避免双击后出现input 还能双击 出现重复的 input
+        td.unbind();
+    }
+
+</script>

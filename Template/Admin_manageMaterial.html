@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="input-group">
+            <span class="input-group-addon">输入关键词</span>
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">搜索</button>
+                            </span>
+        </div>
+    </div>
+</div>
+<div>
+    <strong>数据统计:</strong> 图片(332), 视频(141), 音频(98)
+</div>
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          多媒体素材 <span class="caret"></span>
+                        </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">图片</a></li>
+                <li><a href="">视频</a></li>
+                <li><a href="">音频</a></li>
+            </ul>
+        </li>
+        <li role="presentation"><a href="#">图文</a></li>
+    </ul>
+    
+</div>
+<div class="clearfix">
+    <span>排序</span>
+    <div class="btn-group">
+        <button type="button" class="btn btn-default active">文件名</button>
+        <button type="button" class="btn btn-default">时间</button>
+        <button type="button" class="btn btn-default">文件大小</button>
+    </div>
+    <span class="dropdown">
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        只看公众号<span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">养生100</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">谈股论经</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">最最好的自己</a></li>
+    </ul>
+    </span>
+    <span>按钮式下拉菜单</span>
+    <span class="btn-group">
+                      <button type="button" class="btn btn-danger">文件名A-Z</button>
+                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">文件名A-Z</a></li>
+        <li><a href="#">文件名Z-A</a></li>
+        <li class="divider"></li>
+        <li><a href="#">时间(新-旧)</a></li>
+        <li><a href="#">时间(旧-新)</a></li>
+        <li class="divider"></li>
+        <li><a href="#">文件大小(大-小)</a></li>
+        <li><a href="#">文件大小(小-大)</a></li>
+    </ul>
+    </span>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#sync-materials-modal">
+        <span class="glyphicon glyphicon-cloud-upload"></span> 同步素材
+    </button>
+</div>
+<div class="modal fade" id="sync-materials-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" aria-describedby="同步素材到公众号的模态框">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">同步素材到公众号</h4>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-info">已选中素材文件</h4>
+                <ul class="list-unstyled">
+                    <li><span class="glyphicon glyphicon-film"></span> 素材-图片.mp4 <span class="sync-status text-success">已完成</span></li>
+                    <li><span class="glyphicon glyphicon-picture"></span> tigtag.jpg <span class="sync-status text-success">已完成</span></li>
+                    <li><span class="glyphicon glyphicon-picture"></span> restlife.png <span class="sync-status text-danger">失败</span></li>
+                    <li><span class="glyphicon glyphicon-music"></span> 7891.mp3 <span class="sync-status text-muted">等待</span></li>
+                </ul>
+                <h4 class="text-info">同步到公众号</h4>
+                <label for="" class="checkbox-inline">
+                    <input type="checkbox">公众号1</label>
+                <label for="" class="checkbox-inline">
+                    <input type="checkbox">公众号2</label>
+                <label for="" class="checkbox-inline">
+                    <input type="checkbox">公众号3</label>
+                <label for="" class="checkbox-inline">
+                    <input type="checkbox">公众号4</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id='start-sync' class="btn btn-primary">确定同步</button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox">
+            </th>
+            <th>文件名</th>
+            <th>类型</th>
+            <th>已同步到公众号(点击查看media_id)</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input type="checkbox">
+            </td>
+            <td class="file-name">测试图片_1.jpg</td>
+            <td><span class="glyphicon glyphicon-picture"></span></td>
+            <td>
+                <a class="toggle-popover" href="#" role="button" data-toggle="popover" title="素材信息" data-html="true" data-content="<div style='word-wrap:break-word;'><b>media_id: </b>xa34bdsgbs2341456 <b>url: </b>http://cdn.mp.weixin.qq.com/material/2342345334534</div>">养生100</a>,
+                <a class="toggle-hide" href="">谈股论经</a>,
+                <a href="">做最好的自己</a>
+            </td>
+            <td>
+                <a href="">删除</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        <li class="disabled"><a href="#">&laquo;</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+</nav>
+<script type="text/javascript">
+        $(document).ready(function($) {
+            var i=0;
+            for(; i< 15; i++){
+                $(".table>tbody>tr:last").clone().appendTo($(".table>tbody"));
+                $(".table>tbody>tr:last .file-name").html('测试图片-' + i + '.png');
+                if(i%2 == 0){
+                    $(".table>tbody>tr:last a.toggle-hide").hide();
+                }else{
+                    $(".table>tbody>tr:last a.toggle-hide").show();
+                }
+            }
+
+            $("a.toggle-popover").popover();
+
+            $(".sync-status").hide();
+
+            $("#start-sync").click(function(event) {
+                $(".sync-status").show();
+            });
+        });
+    </script>

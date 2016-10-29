@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/style.css" rel="stylesheet">
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--导航-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">微信公众号管家</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">后台首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统设置 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">公众号管理</a></li>
+                        <li><a href="#">运营人员管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">客服管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">公众号设置</a></li>
+                <li><a href="#">用户管理</a></li>
+                <li><a href="#">消息管理</a></li>
+                <li><a href="#">素材管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">admin</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 80px">
+        <div class="row">
+            <div class="col-md-3">
+                <!--次级导航区域-->
+                <!--消息管理-->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">5</span>
+                        <a href="">历史消息列表</a>
+                    </li>
+                    <li class="list-group-item"><a href="">群发消息</a></li>
+                    <li class="list-group-item"><a href="">模板消息管理</a></li>
+                    <li class="list-group-item"><a href="">客服聊天记录</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <h4>新增图文素材</h4>
+                <form action="" role="form" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">作者</label>
+                        <div class="col-md-4">
+                            <input type="text" name="author" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">原文地址</label>
+                        <div class="col-md-10">
+                            <input type="text" name="content_source_url" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">封面图片</label>
+                        <div class="col-md-10">
+                            <button class="btn btn-primary">选取</button>
+                            <input type="hidden" name="thumb_media_id" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">摘要</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="digest" cols="50" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="">正文内容</label>
+                        <div class="col-md-10">
+                            <script id="editor-container" name="content" type="text/plain"></script>
+                            <!-- <textarea class="form-control" cols="50" rows="4"></textarea> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/ueditor.config.js" type="text/javascript"></script>
+    <script src="../assets/ueditor.all.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor-container');
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function($) {
+            $("#file-choose").change(function(event) {
+                $("#upload-files").html('');
+
+                var data = new FormData();
+
+                for(var i =0; i<this.files.length; i++){
+                    var file = this.files[i];
+                    
+                    // console.log(file);
+                    
+                    var filetype = ''
+                    var notSupportStyle = false;
+                    var fileIcon = '';
+
+                    if(file.type.match(/image.*/)){
+                        fileIcon = 'picture';
+                    }else if(file.type.match(/audio\/(mp3|amr)/)){
+                        fileIcon = 'music';
+                    }else if(file.type.match(/video\/mp4/)){
+                        fileIcon = 'film';
+                    }else{
+                        filetype = '不支持格式';
+                        notSupportStyle = true;
+                        fileIcon = 'ban-circle';
+                    }
+
+                    $("#upload-files").prepend('<li '+ (notSupportStyle ? 'class="text-danger"' : '') +'><span class="glyphicon glyphicon-' + fileIcon + '"></span> ' + filetype + '' + file.name + '</li>');
+                    
+                    if(notSupportStyle == false){
+                        data.append('files[]', file);
+                    }
+                    
+
+                    //data.delete('files['+i+']');
+                }
+                
+                jQuery.ajax({
+                    url: '/test.php',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

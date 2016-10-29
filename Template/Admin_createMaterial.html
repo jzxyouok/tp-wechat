@@ -1,0 +1,70 @@
+<h4>1. 请选择本地文件(图片、视频、音频)</h4>
+<form role="form" action="/test.php" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input id="file-choose" type="file" name="pictures[]" multiple="multiple" class="btn btn-default" />
+        <span class="help-block">支持同时选择多个文件</span>
+    </div>
+</form>
+<h4>2. 保存可上传的文件(不支持的格式不会上传)</h4>
+<form action="">
+    <div>
+        <ul id="upload-files" class="list-unstyled">
+        </ul>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary" value="保存" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $("#file-choose").change(function(event) {
+            $("#upload-files").html('');
+
+            var data = new FormData();
+
+            for(var i =0; i<this.files.length; i++){
+                var file = this.files[i];
+                
+                    // console.log(file);
+                    
+                    var filetype = ''
+                    var notSupportStyle = false;
+                    var fileIcon = '';
+
+                    if(file.type.match(/image.*/)){
+                        fileIcon = 'picture';
+                    }else if(file.type.match(/audio\/(mp3|amr)/)){
+                        fileIcon = 'music';
+                    }else if(file.type.match(/video\/mp4/)){
+                        fileIcon = 'film';
+                    }else{
+                        filetype = '不支持格式';
+                        notSupportStyle = true;
+                        fileIcon = 'ban-circle';
+                    }
+
+                    $("#upload-files").prepend('<li '+ (notSupportStyle ? 'class="text-danger"' : '') +'><span class="glyphicon glyphicon-' + fileIcon + '"></span> ' + filetype + '' + file.name + '</li>');
+                    
+                    if(notSupportStyle == false){
+                        data.append('files[]', file);
+                    }
+                    
+
+                    //data.delete('files['+i+']');
+                }
+                
+                jQuery.ajax({
+                    url: '/test.php',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+    });
+</script>
+

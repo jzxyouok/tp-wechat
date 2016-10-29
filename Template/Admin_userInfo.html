@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/style.css" rel="stylesheet">
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--导航-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">微信公众号管家</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">后台首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统设置 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">公众号管理</a></li>
+                        <li><a href="#">运营人员管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">客服管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">公众号设置</a></li>
+                <li><a href="#">用户管理</a></li>
+                <li><a href="#">消息管理</a></li>
+                <li><a href="#">素材管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">admin</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 80px">
+        <div class="row">
+            <div class="col-md-3">
+                <!--次级导航区域-->
+                <!--消息管理-->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">5</span>
+                        <a href="">历史消息列表</a>
+                    </li>
+                    <li class="list-group-item"><a href="">群发消息</a></li>
+                    <li class="list-group-item"><a href="">模板消息管理</a></li>
+                    <li class="list-group-item"><a href="">客服聊天记录</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <ul class="media-list">
+                    <li class="media">
+                        <a class="media-left" href="#">
+                            <img src="../assets/avatar_1.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                            小美
+                            <input class="" placeholder="备注名"></input>
+                            </h4>
+                            <p>2016/10/10 12:00 加入，广东 深圳</p>
+                        </div>
+                    </li>
+                </ul>
+                <form action="" role="form">
+                    <h4>请勾选用户标签</h4>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 吃货
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 美女
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 爱玩
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 宅男
+                    </label>
+                    <h4>是否放入黑名单</h4>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" checked> 否
+                    </label>
+
+                    <p>
+                        <div class="btn btn-primary">提交</div>
+                        <div class="btn btn-danger">取消</div>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var i = 0;
+
+        $("#btn-import").click(function(event) {
+            $("#progress-demo").removeClass('hide');
+            window.setInterval(function(){
+                if(i > 100) {
+                    window.clearInterval();
+                    return false;
+                }
+
+                $(".progress-bar").attr("aria-valuenow", i);
+                $(".progress-bar").css({'width': i + "%"});
+                $(".progress-bar").html(i + "%");
+                $("#progress-status").html('已完成' + i + "%");
+                i += 10;
+            }, 400);
+        });
+    </script>
+</body>
+
+</html>

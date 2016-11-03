@@ -1,77 +1,122 @@
-<table class="table table-striped table-bordered table-condensed" style="width: 100%">
+<!-- 公众号列表、编辑 -->
+<table class="table table-striped table-bordered table-condensed">
     <tr>
         <th>id</th>
-        <th>appid</th>
-        <th>secretkey</th>
-        <th>url</th>
-        <th>token</th>
-        <th>encoding_aes_key</th>
-        <th>description</th>
-        <th>access_token</th>
-        <th>edit</th>
+        <th>公众号说明</th>
+        <th>appid 与 secretkey</th>
+        <th>url、token与加密密钥</th>
+        <th>编辑</th>
     </tr>
     <tbody>
-    <foreach name="accounts" item="account">
-    <tr class="account-item">
-        <td>{$account.id}</td>
-        <td class="appid">{$account.appid}</td>
-        <td class="secretkey">{$account.secretkey}</td>
-        <td class="url">{$account.url}</td>
-        <td class="token">{$account.token}</td>
-        <td class="encoding_aes_key">{$account.encoding_aes_key}</td>
-        <td class="description">{$account.description}</td>
-        <td class="edit-account">
-            <p>{$account.access_token}</p>
-            <p>{:date('Y-m-d H:i:s', $account['expire_time'])}</p>
-        </td>
-        <td class="edit-account">
-            <a href="{:U('Account/delete',array('id'=>$account['id']))}">删除</a>
-            <a href="{:U('Account/updateAccessToken',array('id'=>$account['id']))}">更新</a>
-            <a href="{:U('Account/getMenu',array('id'=>$account['id']))}">Menu</a>
-            <a href="{:U('Account/getUserList',array('id'=>$account['id']))}">User</a>
-        </td>
-    </tr>
-    </foreach>
+        <foreach name="accounts" item="account">
+            <tr class="account-item">
+                <td class="account-id">{$account.id}</td>
+                <td>
+                    <div class="edit-enabled" data-name="description">{$account.description}</div>  
+                </td>
+                <td>
+                    <div class="edit-enabled" data-name="appid">{$account.appid}</div>
+                    <div class="edit-enabled" data-name="secretkey">{$account.secretkey}</div>
+                </td>
+                <td>
+                    <div class="edit-enabled" data-name="url">{$account.url}</div>
+                    <div class="edit-enabled" data-name="token">{$account.token}</div>
+                    <div class="edit-enabled" data-name="encoding_aes_key">{$account.encoding_aes_key}</div>
+                </td>
+                <!-- <td class="edit-disabled">
+                <p>{$account.access_token}</p>
+                <p>{:date('Y-m-d H:i:s', $account['expire_time'])}</p>
+            </td> -->
+                <td>
+                    <a href="{:U('Account/delete',array('id'=>$account['id']))}">删除</a>
+                    <a href="{:U('Account/updateAccessToken',array('id'=>$account['id']))}">更新</a>
+                    <a href="{:U('Account/getMenu',array('id'=>$account['id']))}">Menu</a>
+                    <a href="{:U('Account/getUserList',array('id'=>$account['id']))}">User</a>
+                </td>
+            </tr>
+        </foreach>
     </tbody>
 </table>
 
+<!-- 新增公众号 -->
+<form action="{:U('Account/add')}" method="post">
+    <fieldset>
+        <legend>新增公众号</legend>
+        <p>
+            <label>公众号描述</label>
+            <input type="text" name="description" class="form-control">
+        </p>
+        <p>
+            <label>appid</label>
+            <input type="text" name="appid" class="form-control">
+        </p>
+        <p>
+            <label>secretkey</label>
+            <input type="text" name="secretkey" class="form-control">
+        </p>
+        <p>
+            <label>url</label>
+            <input type="text" name="url" class="form-control">
+        </p>
+        <p>
+            <label>token</label>
+            <input type="text" name="token" class="form-control">
+        </p>
+        <p>
+            <label>encoding_aes_key</label>
+            <input type="text" name="encoding_aes_key" class="form-control">
+        </p>
+    </fieldset>
+    <input type="submit" class="btn btn-default" value="确定" />
+</form>
 <script type="text/javascript">
+(function(){
     $(function(){
-        $(".table tbody td").not(".edit-account").unbind().dblclick(tdclick);
-    })
+        //部分单元格双击后可以编辑参数
+        $(".edit-enabled").unbind().dblclick(tdclick);
+    });
 
-    function tdclick(e) {
+    function tdclick() {
+        //获取原单元格内的内容
         var td = $(this);
-        var value = td.html();
+        var originalValue = td.html();
 
+        //创建一个 input
         var inputNode = $("<input>");
-        inputNode.attr("value", value);
-        inputNode.blur(function(event) {
-            
+        inputNode.attr("value", originalValue);
 
-            //提交数据
-            var modifyId = td.parent().find("td").first().html();
-
-            params = {id: modifyId, name: td.attr('class'), value: inputNode.val()};
-            $.getJSON("{:U('Account/edit')}", params, function(json, textStatus) {
-                if(json.code == 200){
-                    td.html(inputNode.val());
-                }else{
-                    td.html(value);
-                    alert(json.msg);
-                }
-            });
-
-            //重新绑定事件
-            td.dblclick(tdclick);
-        });
-
+        //插入 input
         td.html('');
         td.append(inputNode);
         inputNode.focus();
 
-        //避免双击后出现input 还能双击 出现重复的 input
+        //避免出现 input 后单元格还能双击，导致输入框内显示<input 代码
         td.unbind();
-    }
 
+        //这个 input 输入完毕数据后失去焦点自动提交
+        inputNode.blur(function() {
+            //获取 id(第一个 td)
+            var modifyId = td.parent().parent().find("td").first().html();
+
+            var params = {id: modifyId, name: td.attr('data-name'), value: inputNode.val()};
+
+            //数据有变化才提交
+            if(params.value !== originalValue){
+                $.getJSON("{:U('Account/edit')}", params, function(json, textStatus) {
+                    if(json.code == 200){
+                        td.html(params.value);
+                    }else{
+                        td.html(originalValue);
+                        alert(json.msg);
+                    }
+                });
+            }else{
+                td.html(originalValue);
+            }
+
+            //重新绑定双击事件
+            td.unbind().dblclick(tdclick);
+        });
+    }
+}());
 </script>

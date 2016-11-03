@@ -8,6 +8,10 @@ use Think\Controller;
 
 class AccountController extends Controller
 {
+    /**
+     * 公众号管理页面
+     * @return [type] [description]
+     */
     public function index()
     {
         $modelAccount = D('Account');
@@ -18,34 +22,38 @@ class AccountController extends Controller
         $this->display('Admin_accounts');
     }
 
+    /**
+     * 添加公众号
+     */
     public function add()
     {
         D('Account')->addData();
 
-        $this->success('操作成功', U('Admin/index'));
+        $this->success('操作成功', U('Account/index'));
     }
 
+    /**
+     * 编辑公众号
+     * @return [type] [description]
+     */
     public function edit()
     {
         $id   = I('get.id');
         $data = array(I('get.name') => I('get.value'));
-        unset($data['id']);
-
-        $account = D('Account')->getDataById($id);
-
-        if ($account[I('get.name')] == I('get.value')) {
-            $this->ajaxReturn(array('code' => 1002, 'msg' => '数据没有变化'));
-        }
 
         $result = D('Account')->editData($id, $data);
 
-        $this->ajaxReturn($result === true ? array('code' => 200, 'msg' => '操作成功' . $result) : array('code' => 1001, 'msg' => '发生错误' . $result));
+        $this->ajaxReturn($result === true ? array('code' => 200, 'msg' => '操作成功') : array('code' => 1001, 'msg' => '发生错误' . $result));
     }
 
+    /**
+     * 删除公众号
+     * @return [type] [description]
+     */
     public function delete()
     {
         D('Account')->deleteData(I('get.id'));
-        $this->success('删除成功', U('Admin/index'));
+        $this->success('删除成功', U('Account/index'));
     }
 
     /**
